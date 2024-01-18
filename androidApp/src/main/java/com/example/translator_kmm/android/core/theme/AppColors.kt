@@ -7,11 +7,11 @@ import androidx.compose.ui.graphics.Color
 import com.example.translator_kmm.core.presentation.AppColors
 
 
-private val AccentViolet = Color(AppColors.AccentViolet)
-private val LightBlue = Color(AppColors.LightBlue)
-private val LightBlueGrey = Color(AppColors.LightBlueGrey)
-private val TextBlack = Color(AppColors.TextBlack)
-private val DarkGrey = Color(AppColors.DarkGrey)
+val AccentViolet = Color(AppColors.AccentViolet)
+val LightBlue = Color(AppColors.LightBlue)
+val LightBlueGrey = Color(AppColors.LightBlueGrey)
+val TextBlack = Color(AppColors.TextBlack)
+val DarkGrey = Color(AppColors.DarkGrey)
 
 private val lightColors = lightColorScheme (
     primary = AccentViolet,

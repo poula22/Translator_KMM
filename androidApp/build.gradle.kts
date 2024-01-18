@@ -54,6 +54,8 @@ dependencies {
 
     implementation(libs.ktor.android)
 
+    implementation(libs.coilCompose)
+
     implementation(libs.testRunner)
     implementation(libs.jUnit)
     implementation(libs.composeTesting)

@@ -1,6 +1,8 @@
 package com.example.translator_kmm.android.translate.presentation.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,8 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.translator_kmm.android.R
@@ -29,7 +33,7 @@ import com.example.translator_kmm.core.presentation.UiLanguage
 @Composable
 fun LanguageDropDown(
     language: UiLanguage,
-    modifier: Modifier,
+    modifier: Modifier=Modifier,
     isOpen: Boolean,
     dismiss: () -> Unit,
     onSelectedLanguage: (UiLanguage) -> Unit,
@@ -49,13 +53,12 @@ fun LanguageDropDown(
         }
         Row(
             modifier = modifier
-                .fillMaxWidth()
                 .clickable(onClick = onClick)
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                model = painterResource(id = language.drawableRes),
+            Image(
+                painter = painterResource(id = language.drawableRes),
                 contentDescription = language.language.langName,
                 modifier = Modifier.size(30.dp)
             )
@@ -76,5 +79,4 @@ fun LanguageDropDown(
             )
         }
     }
-
 }

@@ -124,7 +124,7 @@ class TranslateViewModel(
                     fromText = it.toText ?: "",
                     toText = it.fromText,
                     toLanguage = it.fromLanguage,
-                    fromLanguage = it.fromLanguage
+                    fromLanguage = it.toLanguage
                 ) }
             }
             TranslateEvent.Translate -> {

@@ -1,5 +1,6 @@
 package com.example.translator_kmm.android.translate.presentation.components
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,16 +11,24 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
+import com.example.translator_kmm.android.R
 import com.example.translator_kmm.translate.presentation.TranslateEvent
 import com.example.translator_kmm.translate.presentation.TranslateState
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TranslateScreen(
     state: TranslateState,
-    onEvent:(TranslateEvent)->Unit,
+    onEvent: (TranslateEvent) -> Unit,
 ) {
+    val context = LocalContext.current
     Scaffold(
         floatingActionButton = {
 
@@ -31,22 +40,22 @@ fun TranslateScreen(
                 .padding(padding)
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
-        ){
-            item{
-                Row (
-                    modifier=Modifier.fillMaxWidth(),
+        ) {
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
-                ){
+                ) {
                     LanguageDropDown(
                         language = state.fromLanguage,
                         isOpen = state.isChoosingFromLanguage,
                         dismiss = {
-                                  onEvent(TranslateEvent.StopChoosingLanguage)
+                            onEvent(TranslateEvent.StopChoosingLanguage)
                         },
-                        onSelectedLanguage ={
+                        onSelectedLanguage = {
                             onEvent(TranslateEvent.ChooseFromLanguage(it))
-                        } ,
+                        },
                         onClick = {
                             onEvent(TranslateEvent.OpenFromLanguageDropDown)
                         }
@@ -63,14 +72,50 @@ fun TranslateScreen(
                         dismiss = {
                             onEvent(TranslateEvent.StopChoosingLanguage)
                         },
-                        onSelectedLanguage ={
+                        onSelectedLanguage = {
                             onEvent(TranslateEvent.ChooseToLanguage(it))
-                        } ,
+                        },
                         onClick = {
                             onEvent(TranslateEvent.OpenToLanguageDropDown)
                         }
                     )
                 }
+            }
+            item {
+                val clipboardManager = LocalClipboardManager.current
+                val keyboardController = LocalSoftwareKeyboardController.current
+                TranslateTextField(
+                    fromText = state.fromText,
+                    toText = state.toText,
+                    isTranslating = state.isTranslating,
+                    fromLanguage = state.fromLanguage,
+                    toLanguage = state.toLanguage,
+                    onTranslateClick = {
+                        onEvent(TranslateEvent.Translate)
+                    },
+                    onTextChange = {
+                        onEvent(TranslateEvent.ChangeTranslationText(it))
+                    },
+                    onCopyClick = {
+                        clipboardManager.setText(
+                            buildAnnotatedString {
+                                append(it)
+                            }
+                        )
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.copied_to_clipboard),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
+                    onCloseClick = {
+                                   onEvent(TranslateEvent.CloseTranslation)
+                                   },
+                    onSpeakerClick = { /*TODO*/ },
+                    onTextFieldClick = {
+                        onEvent(TranslateEvent.EditTranslation)
+                    },
+                    modifier = Modifier.fillMaxWidth())
             }
         }
 

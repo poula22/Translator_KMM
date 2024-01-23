@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.translator_kmm.core.presentation.AppColors
 import com.example.translator_kmm.core.presentation.UiLanguage
 
@@ -33,7 +35,7 @@ fun LanguageDropDownMenuItem(
         text = { Text(text = language.language.langName ) },
         leadingIcon = {
             Image(
-                painter = painterResource(id = language.drawableRes),
+                painter = painterResource(id =  language.drawableRes),
                 contentDescription = language.language.langName,
                 modifier = Modifier.size(40.dp)
             )
@@ -42,7 +44,7 @@ fun LanguageDropDownMenuItem(
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun MenuItemPreview(){
     MaterialTheme{

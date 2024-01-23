@@ -1,5 +1,6 @@
 package com.example.translator_kmm.android.translate.presentation.components
 
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.translator_kmm.android.R
 import com.example.translator_kmm.translate.presentation.TranslateEvent
 import com.example.translator_kmm.translate.presentation.TranslateState
+import java.util.Locale
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -44,8 +46,7 @@ fun TranslateScreen(
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     LanguageDropDown(
                         language = state.fromLanguage,
@@ -84,6 +85,8 @@ fun TranslateScreen(
             item {
                 val clipboardManager = LocalClipboardManager.current
                 val keyboardController = LocalSoftwareKeyboardController.current
+                val textToSpeech = rememberTextToSpeech()
+
                 TranslateTextField(
                     fromText = state.fromText,
                     toText = state.toText,
@@ -91,6 +94,7 @@ fun TranslateScreen(
                     fromLanguage = state.fromLanguage,
                     toLanguage = state.toLanguage,
                     onTranslateClick = {
+                        keyboardController?.hide()
                         onEvent(TranslateEvent.Translate)
                     },
                     onTextChange = {
@@ -109,13 +113,22 @@ fun TranslateScreen(
                         ).show()
                     },
                     onCloseClick = {
-                                   onEvent(TranslateEvent.CloseTranslation)
-                                   },
-                    onSpeakerClick = { /*TODO*/ },
+                        onEvent(TranslateEvent.CloseTranslation)
+                    },
+                    onSpeakerClick = {
+                        textToSpeech.language = state.toLanguage.toLocale() ?: Locale.ENGLISH
+                        textToSpeech.speak(
+                            state.toText,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            null
+                        )
+                    },
                     onTextFieldClick = {
                         onEvent(TranslateEvent.EditTranslation)
                     },
-                    modifier = Modifier.fillMaxWidth())
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
 

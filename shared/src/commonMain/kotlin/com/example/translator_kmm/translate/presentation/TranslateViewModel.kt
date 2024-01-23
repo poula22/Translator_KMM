@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 
 class TranslateViewModel(
     private val translateWebService: Translate,
-    private val historyDataSource: HistoryDataSource,
-    private val coroutineScope: CoroutineScope?
+    historyDataSource: HistoryDataSource,
+    coroutineScope: CoroutineScope?
 ) {
     //scope
     val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
@@ -43,8 +43,11 @@ class TranslateViewModel(
                 }
             )
         } else state
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), TranslateState())
-        .toCommonStateFlow()
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        TranslateState()
+    ).toCommonStateFlow()
 
     var translateJob: Job?=null
 
@@ -122,14 +125,12 @@ class TranslateViewModel(
             TranslateEvent.SwapLanguages -> {
                 _state.update { it.copy(
                     fromText = it.toText ?: "",
-                    toText = it.fromText,
+                    toText = if(it.toText!=null) it.fromText else null,
                     toLanguage = it.fromLanguage,
                     fromLanguage = it.toLanguage
                 ) }
             }
-            TranslateEvent.Translate -> {
-                translate(state.value)
-            }
+            TranslateEvent.Translate -> { translate(state.value) }
             else -> Unit
         }
     }

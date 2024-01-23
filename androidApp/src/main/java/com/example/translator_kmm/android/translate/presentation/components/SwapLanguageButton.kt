@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.translator_kmm.android.R
 
 @Composable
@@ -30,5 +31,13 @@ fun SwapLanguagesButton(
             tint = MaterialTheme.colorScheme.onPrimary
         )
 
+    }
+}
+
+@Preview
+@Composable
+fun SwapBtnPreview(){
+    MaterialTheme{
+        SwapLanguagesButton(onClick = {})
     }
 }

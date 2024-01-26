@@ -15,7 +15,7 @@ import kotlinx.datetime.Clock
 class SqlDelightHistoryDataSource(
     db:TranslateDatabase
 ): HistoryDataSource {
-    val queries=db.translateQueries
+    private val queries=db.translateQueries
 
     override fun getHistory(): CommonFlow<List<HistoryItem>> {
         return queries
@@ -30,9 +30,9 @@ class SqlDelightHistoryDataSource(
     override suspend fun insertHistoryItem(item: HistoryItem) {
         queries.insertHistoryEntity(
             id = item.id,
-            fromLanguageCode = item.toLanguageCode,
-            toLanguageCode = item.toLanguageCode,
+            fromLanguageCode = item.fromLanguageCode,
             fromText = item.fromText,
+            toLanguageCode = item.toLanguageCode,
             toText = item.toText,
             timeStamp = Clock.System.now().toEpochMilliseconds()
         )

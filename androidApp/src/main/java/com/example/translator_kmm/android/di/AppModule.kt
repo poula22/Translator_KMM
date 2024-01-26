@@ -1,4 +1,4 @@
-package com.example.di
+package com.example.translator_kmm.android.di
 
 import android.app.Application
 import app.cash.sqldelight.db.SqlDriver

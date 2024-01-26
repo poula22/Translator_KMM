@@ -13,4 +13,10 @@
     <string name="client_error">OOPS an error occured please contact customer support.</string>
     <string name="unkown_error">OOPS an unkown error happened.</string>
     <string name="record_audio">Record audio</string>
+    <string name="speech_recognizer_is_not_available">Speech Recognizer is not available</string>
+    <string name="stop_Recording">Stop Recording</string>
+    <string name="apply">Apply</string>
+    <string name="record_again">Record again</string>
+    <string name="listening">Listening</string>
+    <string name="start_talking">Start Talking</string>
 </resources>

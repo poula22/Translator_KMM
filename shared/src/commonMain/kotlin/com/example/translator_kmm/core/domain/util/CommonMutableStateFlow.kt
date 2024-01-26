@@ -6,5 +6,5 @@ expect open class CommonMutableStateFlow<T>(
     stateFlow: MutableStateFlow<T>
 ) : MutableStateFlow<T>
 
-fun <T> MutableStateFlow<T>.toCommonStateFlow() =
+fun <T> MutableStateFlow<T>.toCommonMutableStateFlow() =
     CommonMutableStateFlow(this)

@@ -8,3 +8,15 @@ captures
 .cxx
 local.properties
 xcuserdata
+/androidApp/release/androidApp-release.apk
+/iosApp/iosApp.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+/iosApp/iosApp/iosApp.entitlements
+/androidApp/release/output-metadata.json
+/iosApp/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh
+/iosApp/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-Debug-input-files.xcfilelist
+/iosApp/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-Debug-output-files.xcfilelist
+/iosApp/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-Release-input-files.xcfilelist
+/iosApp/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-Release-output-files.xcfilelist
+/iosApp/Pods/Target Support Files/shared/shared-copy-dsyms.sh
+/iosApp/Pods/Target Support Files/shared/shared-copy-dsyms-input-files.xcfilelist
+/iosApp/Pods/Target Support Files/shared/shared-copy-dsyms-output-files.xcfilelist

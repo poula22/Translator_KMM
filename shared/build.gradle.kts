@@ -7,6 +7,7 @@ plugins {
 }
 
 kotlin {
+    task("testClasses")
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -18,12 +19,13 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-            binaryOption("bundleId", "com.example.translator_kmm.shared")
-        }
-    }
+    )
+//        .forEach {
+//        it.binaries.framework {
+//            baseName = "shared"
+////            binaryOption("bundleId", "com.example.translator_kmm.shared")
+//        }
+//    }
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
@@ -32,7 +34,8 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
-            isStatic = true
+            binaryOption("bundleId", "com.example.translator_kmm.shared")
+            isStatic = false
         }
     }
 

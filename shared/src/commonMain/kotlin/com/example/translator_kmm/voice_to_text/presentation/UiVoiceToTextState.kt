@@ -5,7 +5,7 @@ data class UiVoiceToTextState(
     val spokenText: String = "",
     val canRecord: Boolean = false,
     val recordError: String? =null,
-    val displayState: DisplayState = DisplayState.WAITING_TO_TALK
+    val displayState: DisplayState? = DisplayState.WAITING_TO_TALK
 )
 
 enum class DisplayState{
